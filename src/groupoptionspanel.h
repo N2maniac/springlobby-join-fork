@@ -30,6 +30,7 @@ class GroupOptionsPanel : public wxPanel
       IGNORE_PM,
       NOTIFY_STATUS,
       AUTOCKICK,
+      ALLOW_JUGGLER,
       NOTIFY_HIGHLIGHT,
       HIGHLIGHT_COLOR,
       USERS_LIST,
@@ -49,6 +50,7 @@ class GroupOptionsPanel : public wxPanel
     wxCheckBox* m_ignore_pm_check;
     wxCheckBox* m_notify_status_check;
     wxCheckBox* m_autokick_check;
+    wxCheckBox* m_allow_juggler_check;
     wxCheckBox* m_highlight_check;
     wxStaticText* m_highlight_colorstaticText;
     ColorButton* m_highlight_color_button;

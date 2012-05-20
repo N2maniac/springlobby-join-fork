@@ -59,6 +59,7 @@ class BattleRoomTab : public wxScrolledWindow, public UnitsyncReloadedSink<Battl
 		void OnFixColours( wxCommandEvent& event );
 		void OnAddBot( wxCommandEvent& event );
 		void OnImReady( wxCommandEvent& event );
+		void OnTickJuggler (wxCommandEvent& event);
 		void OnLock( wxCommandEvent& event );
 		void OnAutoHost( wxCommandEvent& event );
 		void OnImSpec( wxCommandEvent& event );
@@ -187,6 +188,7 @@ class BattleRoomTab : public wxScrolledWindow, public UnitsyncReloadedSink<Battl
 		wxMenuItem* m_autopaste_mnu;
 
 		wxCheckBox* m_ready_chk;
+		wxCheckBox* m_juggler_chk;
 		wxCheckBox* m_spec_chk;
 		wxCheckBox* m_auto_unspec_chk;
 		wxCheckBox* m_lock_chk;
@@ -199,6 +201,7 @@ class BattleRoomTab : public wxScrolledWindow, public UnitsyncReloadedSink<Battl
 		enum {
 			BROOM_LEAVE = wxID_HIGHEST,
 			BROOM_IMREADY,
+			BROOM_JUGGLER,
 			BROOM_LOCK,
 			BROOM_LOCK_BALANCE,
 			BROOM_MANAGE_MENU,

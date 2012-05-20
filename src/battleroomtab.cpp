@@ -61,6 +61,7 @@ BEGIN_EVENT_TABLE( BattleRoomTab, wxPanel )
 	EVT_BUTTON              ( BROOM_HOST_NEW,               BattleRoomTab::OnHostNew                )
 
 	EVT_CHECKBOX            ( BROOM_IMREADY,                BattleRoomTab::OnImReady                )
+	EVT_CHECKBOX            ( BROOM_JUGGLER,                BattleRoomTab::OnTickJuggler                )
 	EVT_CHECKBOX            ( BROOM_SPEC,                   BattleRoomTab::OnImSpec                 )
 	EVT_CHECKBOX            ( BROOM_UNSPEC,                 BattleRoomTab::OnAutounSpec             )
 	EVT_COMBOBOX            ( BROOM_TEAMSEL,                BattleRoomTab::OnTeamSel                )
@@ -144,6 +145,8 @@ BattleRoomTab::BattleRoomTab( wxWindow* parent, Battle* battle )
 	m_auto_unspec_chk->SetToolTip( TE( _( "automatically unspec when there's a free slot" ) ) );
 	m_ready_chk = new wxCheckBox( m_player_panel, BROOM_IMREADY, _( "I'm ready" ), wxDefaultPosition, wxSize( -1, CONTROL_HEIGHT ) );
 	m_ready_chk->SetToolTip( TE( _( "Click this if you are content with the battle settings." ) ) );
+	m_juggler_chk = new wxCheckBox( m_player_panel, BROOM_JUGGLER, _( "Juggler" ), wxDefaultPosition, wxSize( -1, CONTROL_HEIGHT ) );
+	m_juggler_chk->SetToolTip( TE( _( "Click this if you dont want to be juggled." ) ) );
 
 	m_team_lbl = new wxStaticText( m_player_panel, -1, _( "Team" ) );
 	m_ally_lbl = new wxStaticText( m_player_panel, -1, _( "Ally" ) );
@@ -310,6 +313,7 @@ BattleRoomTab::BattleRoomTab( wxWindow* parent, Battle* battle )
 	m_player_sett_sizer->Add( m_spec_chk, 0, wxEXPAND | wxALL, 2 );
 	m_player_sett_sizer->Add( m_auto_unspec_chk, 0, wxEXPAND | wxALL, 2 );
 	m_player_sett_sizer->Add( m_ready_chk, 0, wxEXPAND | wxALL, 2 );
+	m_player_sett_sizer->Add( m_juggler_chk, 0, wxEXPAND | wxALL, 2);
 	m_player_sett_sizer->AddStretchSpacer();
 	m_player_sett_sizer->Add( m_ally_setup_lbl, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 2 );
 	m_player_sett_sizer->Add( m_ok_count_lbl, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 2 );
@@ -731,6 +735,12 @@ void BattleRoomTab::OnImReady( wxCommandEvent& /*unused*/ )
 	m_battle->SetImReady( m_ready_chk->GetValue() );
 }
 
+void BattleRoomTab::OnTickJuggler( wxCommandEvent& /*unused*/ )
+{
+	//if ( !m_battle ) return;
+	//m_battle->SetImReady( m_ready_chk->GetValue() );
+}
+
 
 void BattleRoomTab::OnLock( wxCommandEvent& /*unused*/ )
 {
@@ -1118,6 +1128,7 @@ void BattleRoomTab::SetBattle( Battle* battle )
 	m_browse_map_btn->Enable(m_battle);
 
 	m_ready_chk->Enable(m_battle);
+	m_juggler_chk->Enable(m_battle);
 	m_spec_chk->Enable(m_battle);
 	m_lock_chk->Enable(m_battle);
 	m_autolock_chk->Enable(m_battle);

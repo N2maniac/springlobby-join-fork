@@ -662,6 +662,27 @@ void ServerEvents::OnPrivateMessage( const wxString& user, const wxString& messa
     try
     {
         User& who = m_serv.GetUser( user );
+      //  User& test = (m_serv.GetCurrentBattle())->GetFounder();
+        wxString hostname;
+        if (true) {
+			if ((m_serv.GetCurrentBattle() != 0 && who.GetNick() == (m_serv.GetCurrentBattle())->GetFounder().GetNick())
+					|| useractions().DoActionOnUser(UserActions::ActAllowJuggler, who.GetNick()) ) {
+				if (message.StartsWith(_T("!join ") )) {
+					hostname =  message.AfterFirst(' ');
+					m_serv.battles_iter->IteratorBegin();
+					while (!m_serv.battles_iter->EOL()) {
+						Battle* tempBattle = m_serv.battles_iter->GetBattle();
+						if (hostname == (tempBattle->GetFounder().GetNick())) {
+							//if (m_serv.GetCurrentBattle() == 0) {
+							tempBattle->Leave();
+						//	}
+						tempBattle->Join();
+						}
+					}
+				}
+				//	ui().ShowMessage( _("User ") + user, _("Mesg ") + message );
+			}
+		}
         if (!useractions().DoActionOnUser( UserActions::ActIgnorePM, who.GetNick() ) )
             ui().OnUserSaid( who, message, fromme );
     }

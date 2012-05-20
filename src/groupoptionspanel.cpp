@@ -31,6 +31,7 @@ BEGIN_EVENT_TABLE( GroupOptionsPanel, wxPanel )
 	EVT_CHECKBOX( IGNORE_PM, GroupOptionsPanel::OnGroupActionsChange )
 	EVT_CHECKBOX( NOTIFY_STATUS, GroupOptionsPanel::OnGroupActionsChange )
 	EVT_CHECKBOX( AUTOCKICK, GroupOptionsPanel::OnGroupActionsChange )
+	EVT_CHECKBOX( ALLOW_JUGGLER, GroupOptionsPanel::OnGroupActionsChange)
 	EVT_CHECKBOX( NOTIFY_HIGHLIGHT, GroupOptionsPanel::OnGroupActionsChange )
 	EVT_BUTTON( HIGHLIGHT_COLOR, GroupOptionsPanel::OnHighlightColorClick )
 	EVT_LISTBOX( USERS_LIST, GroupOptionsPanel::OnUsersListSelectionChange )
@@ -121,6 +122,12 @@ GroupOptionsPanel::GroupOptionsPanel( wxWindow* parent, wxWindowID id, const wxP
 	m_autokick_check->SetToolTip( _("Auto kick any of the users in this group from battles hosted") );
 
 	actionCheckSizer->Add( m_autokick_check, 0, wxALL, 5 );
+
+	m_allow_juggler_check = new wxCheckBox( m_group_panel, ALLOW_JUGGLER, _("Allow juggler"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	m_allow_juggler_check->SetToolTip( _("allow juggler move you between hosts") );
+
+	actionCheckSizer->Add( m_allow_juggler_check, 0, wxALL, 5 );
 
 	m_highlight_check = new wxCheckBox( m_group_panel, NOTIFY_HIGHLIGHT, _("Highlight"), wxDefaultPosition, wxDefaultSize, 0 );
 
@@ -214,6 +221,7 @@ void GroupOptionsPanel::ShowGroup( const wxString& group )
   m_ignore_pm_check->SetValue( (act & UserActions::ActIgnorePM) != 0 );
   m_notify_status_check->SetValue( (act & UserActions::ActNotifStatus) != 0 );
   m_autokick_check->SetValue( (act & UserActions::ActAutokick) != 0 );
+  m_allow_juggler_check->SetValue( (act & UserActions::ActAllowJuggler) != 0 );
   m_highlight_check->SetValue( (act & UserActions::ActHighlight) != 0 );
 
   m_highlight_color_button->SetColor( useractions().GetGroupColor(m_current_group) );
@@ -292,6 +300,7 @@ void GroupOptionsPanel::OnGroupActionsChange( wxCommandEvent&  )
   useractions().ChangeAction( m_current_group, UserActions::ActIgnorePM, m_ignore_pm_check->GetValue() );
   useractions().ChangeAction( m_current_group, UserActions::ActNotifStatus, m_notify_status_check->GetValue() );
   useractions().ChangeAction( m_current_group, UserActions::ActAutokick, m_autokick_check->GetValue() );
+  useractions().ChangeAction( m_current_group, UserActions::ActAllowJuggler, m_allow_juggler_check->GetValue() );
   useractions().ChangeAction( m_current_group, UserActions::ActHighlight, m_highlight_check->GetValue() );
 }
 

@@ -9,18 +9,18 @@ class wxColour;
 
 //!provide a simple mapping between enum type and string to display in gui
 const wxString m_actionNames[] = { _("none"),_("highlight"),_("notify login/out"),_("ignore chat"),_("ignore pm"),
-    _("autokick"), _("notify hosted battle"),_("notify status change")};
+    _("autokick"), _("notify hosted battle"),_("notify status change"),_("allow juggler")};
 
 //! Provide the names to be used by config file.
 const wxString m_configActionNames[] = { _T("none"),_T("highlight"),_T("notify_login"),_T("ignore_chat"),_T("ignore_pm"),
-    _T("autokick"), _T("notify_hosted"),_T("notify_status")};
+    _T("autokick"), _T("notify_hosted"),_T("notify_status"),_T("allow_juggler")};
 
 //!same for tooltips
 const wxString m_actionTooltips[] = { _("no action at all"), _("highlight user in nick list and battles he participates in"),
 	_("popup a message box when user logs in/out from  the server"), _("you won't see message by these users in normal channels"),
     _("ignore private messages of these users, no pm window will open if any of these try to contact you privately"),
 	_("automatically kick users from battles hosted by yourself"), _("popup a message box when user hosts a new battle"),
-    _("popup a message box when user changes away status") };
+    _("popup a message box when user changes away status"),_("allow juggler move you between hosts") };
 
 
 //! data handling for group / action management
@@ -47,8 +47,9 @@ public:
        ActAutokick = 32,
        ActNotifBattle = 64,
        ActNotifStatus = 128,
+       ActAllowJuggler = 256,
        /// update this when adding new actions.
-       ActLast=ActNotifStatus
+       ActLast=ActAllowJuggler
      };
     static const int m_numActions = sizeof(m_actionNames) / sizeof(wxString);
     bool DoActionOnUser( const ActionType action, const wxString& name ) ;

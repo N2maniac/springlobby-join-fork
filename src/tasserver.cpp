@@ -460,7 +460,9 @@ void TASServer::Login()
     if ( localaddr.IsEmpty() ) localaddr = _T("*");
 	m_id_transmission = false;
     wxFormat login_cmd( _T("%s %s %s %s %s\t%s\ta m sp") );
-    SendCmd ( _T("LOGIN"), (login_cmd % m_user % pass % GetHostCPUSpeed() % localaddr % Useragent() % protocol).str() );
+//    SendCmd ( _T("LOGIN"), (login_cmd % m_user % pass % GetHostCPUSpeed() % localaddr % Useragent() % protocol).str() );
+    //Hack to make springie servers to think this is a zkl client = set cpuspeed to 6.667GHz
+    SendCmd ( _T("LOGIN"), (login_cmd % m_user % pass % _T("6667") % localaddr % Useragent() % protocol).str() );
 	m_id_transmission = true;
 }
 
